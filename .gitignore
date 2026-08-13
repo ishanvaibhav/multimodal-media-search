@@ -1,0 +1,66 @@
+# ========================================================================== 
+# Environment / secrets — NEVER commit real values
+# ========================================================================== 
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ========================================================================== 
+# Python
+# ========================================================================== 
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ========================================================================== 
+# Node / Next.js
+# ========================================================================== 
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts.bak
+
+# ========================================================================== 
+# Runtime data — user media, indexes, databases (never commit)
+# ========================================================================== 
+backend/data/media/
+backend/data/frames/
+backend/data/thumbnails/
+backend/data/tmp_uploads/
+backend/data/chroma/
+backend/data/*.db
+backend/data/*.db-*
+backend/data/tmp_uploads/
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Model / HF caches
+.hf/
+.cache/huggingface/
+model_cache/
+
+# ========================================================================== 
+# Scratch / generated demo outputs
+# ========================================================================== 
+contact_*.png
+engine_results.png
+
+# ========================================================================== 
+# OS / editors
+# ========================================================================== 
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
