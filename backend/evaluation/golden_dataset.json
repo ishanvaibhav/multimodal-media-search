@@ -1,0 +1,15 @@
+{
+  "description": "Golden evaluation dataset for the synthetic demo video (test_images concatenated into 8s segments: dog 0-8, cat 8-16, car 16-24, person 24-32, dog 32-40, car 40-48). video_name is resolved to a video_id at runtime; tolerance_seconds bounds temporal localization error.",
+  "version": 1,
+  "tolerance_seconds": 3.0,
+  "queries": [
+    { "query": "a dog", "video_name": "demo.mp4", "expected": [0.0, 32.0] },
+    { "query": "a dog running", "video_name": "demo.mp4", "expected": [0.0, 32.0] },
+    { "query": "a cat", "video_name": "demo.mp4", "expected": [8.0] },
+    { "query": "a cat near a window", "video_name": "demo.mp4", "expected": [8.0] },
+    { "query": "a red car", "video_name": "demo.mp4", "expected": [16.0, 40.0] },
+    { "query": "a car", "video_name": "demo.mp4", "expected": [16.0, 40.0] },
+    { "query": "a person standing", "video_name": "demo.mp4", "expected": [24.0] },
+    { "query": "a person", "video_name": "demo.mp4", "expected": [24.0] }
+  ]
+}

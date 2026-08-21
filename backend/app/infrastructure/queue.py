@@ -1,0 +1,29 @@
+"""Job queue abstraction.
+
+The indexing pipeline is queue-oriented through the ``JobQueue`` protocol.
+Today it is implemented directly by ``JobRepository`` (SQLite-backed,
+single-process). The protocol is the migration seam: a future Redis/Celery/RQ
+/Arq/Kafka implementation can satisfy the same surface without rewriting the
+worker or job-service logic.
+
+``JobQueue`` intentionally exposes only durable operations (enqueue, dequeue,
+state transitions, listing, counts) — the worker never touches SQL directly.
+"""
+from __future__ import annotations
+
+from typing import Optional, Protocol, runtime_checkable
+
+from ..domain.models import Job
+
+
+@runtime_checkable
+class JobQueue(Protocol):
+    def enqueue(self, video_id: str, type: str = "index") -> str: ...
+    def next_queued(self) -> Optional[Job]: ...
+    def get(self, job_id: str) -> Optional[Job]: ...
+    def transition(self, job_id: str, from_status: str, to_status: str, **extra) -> None: ...
+    def set_progress(self, job_id: str, stage: str, progress: float, **counters) -> None: ...
+    def list_active(self) -> list[Job]: ...
+    def cancel_all_active(self) -> int: ...
+    def running_count(self) -> int: ...
+    def queued_count(self) -> int: ...
