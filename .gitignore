@@ -1,0 +1,40 @@
+# Secrets / environment
+.env
+.env.local
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+*.tsbuildinfo
+
+# Runtime data (indexes, media, vectors)
+data/
+backend/_testdata/
+demo/
+
+# Caches (pip / npm / huggingface)
+.cache/
+.npm/
+
+# OS / editor / accidental environment artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.config/
+.sudo_as_admin_successful
+*.log
