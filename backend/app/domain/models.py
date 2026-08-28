@@ -315,6 +315,7 @@ class FrameSample:
 
 
 @dataclass
+<<<<<<< HEAD
 class SavedContext:
     """A user-saved search result (query + media + timestamp + context)."""
     id: int | None = None
@@ -383,6 +384,8 @@ class SavedContext:
 
 
 @dataclass
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 class Candidate:
     """A vector-store hit."""
     frame_id: str
@@ -394,6 +397,10 @@ class Candidate:
     uploaded_at: float | None = None
     duration: float | None = None
     metadata: dict = field(default_factory=dict)
+<<<<<<< HEAD
     raw_score: float = 0.0     # pre-normalization cosine similarity
     final_score: float = 0.0   # deterministic rerank score (weighted signals)
     full_query_match: bool = False  # this candidate matched the FULL query embedding
+=======
+    raw_score: float = 0.0  # pre-normalization cosine similarity
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424

@@ -53,6 +53,7 @@ class SearchResult(BaseModel):
     height: Optional[int] = None
     uploaded_at: Optional[str] = None
     context_frames: list[ContextFrame] = []
+<<<<<<< HEAD
     context_start: Optional[float] = None
     context_end: Optional[float] = None
     context_start_hms: Optional[str] = None
@@ -61,6 +62,8 @@ class SearchResult(BaseModel):
     context_text: Optional[str] = None
     context_summary: Optional[str] = None
     final_score: Optional[float] = None
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     trace: dict = {}
 
 
@@ -99,6 +102,7 @@ class FeedbackRequest(BaseModel):
 
 class FeedbackResponse(BaseModel):
     recorded: bool
+<<<<<<< HEAD
 
 
 class ContextSaveRequest(BaseModel):
@@ -142,3 +146,5 @@ class SavedContextList(BaseModel):
 
 class ContextDeleteResponse(BaseModel):
     deleted: int
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424

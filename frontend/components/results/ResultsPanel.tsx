@@ -4,10 +4,19 @@ import { useState } from "react";
 import type { SearchResponse, SearchResult } from "@/lib/types";
 import { absoluteUrl, api } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
+<<<<<<< HEAD
 import { copyText, downloadText } from "@/lib/clipboard";
 import { contextText, resultCsv, resultJson, safeFileName } from "@/lib/context";
 import { Badge, Button, EmptyState } from "../ui/primitives";
 import { ContextViewer } from "../context/ContextViewer";
+=======
+import { Badge, Button, EmptyState } from "../ui/primitives";
+import { Modal } from "../ui/Modal";
+
+function copyTimestamp(text: string) {
+  void navigator.clipboard?.writeText(text).catch(() => {});
+}
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
 export function ResultsPanel({
   response,
@@ -15,13 +24,17 @@ export function ResultsPanel({
   onToggleHidden,
   onClearResults,
   onPlay,
+<<<<<<< HEAD
   onPlaySegment,
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 }: {
   response: SearchResponse | null;
   hidden: boolean;
   onToggleHidden: () => void;
   onClearResults: () => void;
   onPlay: (result: SearchResult) => void;
+<<<<<<< HEAD
   onPlaySegment?: (result: SearchResult) => void;
 }) {
   const [context, setContext] = useState<SearchResult | null>(null);
@@ -33,6 +46,11 @@ export function ResultsPanel({
     setFlash(msg);
     window.setTimeout(() => setFlash(null), 1600);
   };
+=======
+}) {
+  const [context, setContext] = useState<SearchResult | null>(null);
+  const [feedback, setFeedback] = useState<Record<string, boolean>>({});
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
   const sendFeedback = (r: SearchResult, relevant: boolean) => {
     setFeedback((f) => ({ ...f, [r.frame_id || r.video_id]: relevant }));
@@ -47,6 +65,7 @@ export function ResultsPanel({
       .catch(() => {});
   };
 
+<<<<<<< HEAD
   const copyResult = async (r: SearchResult) => {
     const ok = await copyText(r.context_text ?? contextText(r, response?.query ?? ""));
     notify(ok ? "Copied!" : "Copy failed");
@@ -92,6 +111,8 @@ export function ResultsPanel({
     notify(ok ? "Copied all results!" : "Copy failed");
   };
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   return (
     <section className="panel">
       <div className="panel-header">
@@ -103,12 +124,17 @@ export function ResultsPanel({
               {response.took_ms} ms · {response.mode}
             </span>
           )}
+<<<<<<< HEAD
           {flash && <span className="text-xs text-emerald-400">{flash}</span>}
         </div>
         <div className="flex items-center gap-2">
           {response && response.results.length > 0 && (
             <Button onClick={() => void copyAllResults()}>Copy All</Button>
           )}
+=======
+        </div>
+        <div className="flex items-center gap-2">
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
           <Button onClick={onClearResults}>Clear Results</Button>
           <Button onClick={onToggleHidden}>
             {hidden ? "Show Results" : "Hide Results"}
@@ -142,7 +168,10 @@ export function ResultsPanel({
             <ul className="space-y-3">
               {response.results.map((r, i) => {
                 const fb = feedback[r.frame_id || r.video_id];
+<<<<<<< HEAD
                 const saved = savedIds.has(r.frame_id || r.video_id);
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                 return (
                   <li
                     key={`${r.frame_id}-${i}`}
@@ -183,18 +212,27 @@ export function ResultsPanel({
                           </div>
                           <Badge tone="blue">{(r.similarity * 100).toFixed(1)}% match</Badge>
                         </div>
+<<<<<<< HEAD
                         <div className="mt-1.5 flex items-center gap-3">
+=======
+                        <div className="mt-2 flex items-center gap-3">
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                           {r.media_type === "image" ? (
                             <span className="text-xs text-slate-500">image result</span>
                           ) : (
                             <>
                               <button
+<<<<<<< HEAD
                                 onClick={() => void copyText(r.timestamp_hms).then(() => notify("Copied!"))}
+=======
+                                onClick={() => copyTimestamp(r.timestamp_hms)}
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                                 title="Copy timestamp"
                                 className="font-mono text-lg font-semibold text-accent-soft hover:underline"
                               >
                                 {r.timestamp_hms}
                               </button>
+<<<<<<< HEAD
                               {r.context_start != null && r.context_end != null && (
                                 <span className="font-mono text-xs text-slate-500">
                                   {r.context_start_hms ?? r.context_start.toFixed(2)} →{" "}
@@ -209,6 +247,14 @@ export function ResultsPanel({
                             {r.context_reason}
                           </p>
                         )}
+=======
+                              <span className="text-xs text-slate-500">
+                                {r.timestamp.toFixed(2)}s · raw {r.raw_similarity.toFixed(3)}
+                              </span>
+                            </>
+                          )}
+                        </div>
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                         <div className="mt-2 flex flex-wrap gap-1.5">
                           <Button variant="primary" onClick={() => onPlay(r)}>
                             {r.media_type === "image" ? "🖼 View Image" : "▶ Play from here"}
@@ -216,6 +262,7 @@ export function ResultsPanel({
                           {r.media_type === "video" && (
                             <Button onClick={() => setContext(r)}>View Context</Button>
                           )}
+<<<<<<< HEAD
                           <Button onClick={() => void copyResult(r)}>📋 Copy</Button>
                           <Button onClick={() => void saveResult(r)}>
                             {saved ? "Saved ✓" : "💾 Save"}
@@ -224,6 +271,8 @@ export function ResultsPanel({
                             <Button onClick={() => downloadResult(r, "txt")}>TXT</Button>
                             <Button onClick={() => downloadResult(r, "json")}>JSON</Button>
                           </span>
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                           <span className="ml-1 flex items-center gap-1">
                             <button
                               onClick={() => sendFeedback(r, true)}
@@ -251,6 +300,7 @@ export function ResultsPanel({
         </div>
       )}
 
+<<<<<<< HEAD
       <ContextViewer
         result={context}
         query={response?.query ?? ""}
@@ -259,6 +309,35 @@ export function ResultsPanel({
         onOpenAtMatch={(r) => onPlay(r)}
         onPlaySegment={onPlaySegment}
       />
+=======
+      <Modal open={context !== null} onClose={() => setContext(null)} title="Nearby frames">
+        {context && (
+          <div>
+            <p className="mb-3 text-sm text-slate-300">
+              {context.video_name} — around {context.timestamp_hms}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {context.context_frames.length === 0 && (
+                <p className="text-xs text-slate-500">No nearby frames indexed.</p>
+              )}
+              {context.context_frames.map((f) => (
+                <figure key={f.frame_id} className="w-32">
+                  <img
+                    src={absoluteUrl(f.frame_url)}
+                    alt={`frame at ${f.timestamp_hms}`}
+                    className="h-20 w-full rounded-md object-cover"
+                    loading="lazy"
+                  />
+                  <figcaption className="mt-1 text-center font-mono text-[11px] text-slate-400">
+                    {f.timestamp_hms}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        )}
+      </Modal>
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     </section>
   );
 }

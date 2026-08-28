@@ -30,7 +30,10 @@ frame directories and never touches repository runtime `data/`.
 | `test_p0_hardening.py` | global delete-all (queued/running jobs, idempotent, no resurrection), maintenance barrier, concurrent/repeat upload completion, concurrent + conflicting chunk uploads, upload-concurrency limit |
 | `test_range_and_model.py` | HTTP Range (200/206/416/suffix/open-ended/malformed/multi-range), embedding model mismatch fail-closed + dev override + match |
 | `test_p1_features.py` | fine-search global-frame & distinct-video budgets, metadata filter parity, datetime normalization (offsets, naive rejection), query length limit, explicit `frame_type`, fine-cache interval roundtrip, DB migration to latest schema |
+<<<<<<< HEAD
 | `test_context.py` | context formatting (plain text), query normalization/expansion (+ regression: single-component unchanged, connector split, word-minimum, disable, full-query boost), query-embedding cache, deterministic rerank (final_score + diversity), representative context-frame selection (dedup/order/matched-frame), saved-context CRUD + export (txt/json/csv, frames+reason roundtrip), search-result context fields |
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 | `test_fine_cache.py` | interval coverage (disjoint/adjacent/overlapping/partial/complete), config/version invalidation, concurrent extraction (single extraction), maintenance blocks cache writes |
 | `test_async_loop.py` | DELETE ALL never blocks the event loop (heartbeat regression), worker `wait_until_idle` timeout, maintenance retained on failed cleanup |
 | `test_image_dataset.py` (`-m ml`) | real SigLIP semantic ranking on `test_images/` (dog/cat/car/person) |

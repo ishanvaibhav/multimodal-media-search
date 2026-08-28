@@ -18,7 +18,11 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from . import __version__
+<<<<<<< HEAD
 from .api import admin, contexts, health, jobs, media, search, system, uploads
+=======
+from .api import admin, health, jobs, media, search, system, uploads
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 from .config import Settings, get_settings
 from .container import build_container
 from .exceptions import AppError
@@ -116,7 +120,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(uploads.router)
     app.include_router(media.router)
     app.include_router(search.router)
+<<<<<<< HEAD
     app.include_router(contexts.router)
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     app.include_router(jobs.router)
     app.include_router(admin.router)
     app.include_router(health.router)

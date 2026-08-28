@@ -14,7 +14,10 @@ from __future__ import annotations
 
 import json
 import re
+<<<<<<< HEAD
 from typing import Optional
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
 import httpx
 
@@ -38,6 +41,7 @@ class LLMReranker:
     def enabled(self) -> bool:
         return bool(self.settings.gemini_api_key) and self.settings.llm_rerank
 
+<<<<<<< HEAD
     def summarize_context(self, query: str, evidence: str) -> Optional[str]:
         """Generate a concise, GROUNDED summary of retrieved context evidence.
 
@@ -77,6 +81,8 @@ class LLMReranker:
             log.warning("context summary failed, using evidence only: %s", exc)
             return None
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     def rerank(self, query: str, events: list[dict]) -> list[dict]:
         """Reorder events by LLM judgment. Returns the same list (reordered).
 

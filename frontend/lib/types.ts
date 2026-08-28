@@ -138,6 +138,7 @@ export interface SearchResult {
   height: number | null;
   uploaded_at: string | null;
   context_frames: ContextFrame[];
+<<<<<<< HEAD
   context_start: number | null;
   context_end: number | null;
   context_start_hms: string | null;
@@ -165,6 +166,8 @@ export interface SavedContext {
   context_frames: ContextFrame[];
   reason: string | null;
   created_at: string | null;
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 }
 
 export interface SearchResponse {

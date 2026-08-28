@@ -9,12 +9,19 @@ import { MediaLibrary } from "@/components/media/MediaLibrary";
 import { JobsPanel } from "@/components/jobs/JobsPanel";
 import { VideoPlayer, type PlayerTarget } from "@/components/player/VideoPlayer";
 import { Modal } from "@/components/ui/Modal";
+<<<<<<< HEAD
 import { SavedContexts } from "@/components/context/SavedContexts";
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 import { useSearch } from "@/hooks/useSearch";
 import { useMedia } from "@/hooks/useMedia";
 import { useSystemStatus } from "@/hooks/useSystemStatus";
 import { absoluteUrl } from "@/lib/api";
+<<<<<<< HEAD
 import type { SavedContext, SearchResult, VideoItem } from "@/lib/types";
+=======
+import type { SearchResult, VideoItem } from "@/lib/types";
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
 export default function Home() {
   const search = useSearch();
@@ -41,6 +48,7 @@ export default function Home() {
 
   const playResult = useCallback(
     (r: SearchResult) => {
+<<<<<<< HEAD
       if (r.media_type === "image") {
         openMedia(r.video_name, r.frame_url || r.stream_url, 0, true);
         return;
@@ -51,6 +59,9 @@ export default function Home() {
         startAt: r.timestamp,
         endAt: r.context_end ?? null,
       });
+=======
+      openMedia(r.video_name, r.frame_url || r.stream_url, r.timestamp, r.media_type === "image");
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     },
     [openMedia],
   );
@@ -62,6 +73,7 @@ export default function Home() {
     [openMedia],
   );
 
+<<<<<<< HEAD
   // "Play Context Segment": open the player and immediately play start→end.
   const playSegment = useCallback((r: SearchResult) => {
     if (r.media_type === "image") return;
@@ -89,6 +101,8 @@ export default function Home() {
     [search],
   );
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   return (
     <div className="flex min-h-screen flex-col">
       <Header onDataCleared={refreshMedia} />
@@ -111,7 +125,10 @@ export default function Home() {
               onToggleHidden={() => setShowResults((s) => !s)}
               onClearResults={search.clearResults}
               onPlay={playResult}
+<<<<<<< HEAD
               onPlaySegment={playSegment}
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
             />
             {search.error && (
               <div className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
@@ -127,7 +144,10 @@ export default function Home() {
               onPlay={playVideo}
               maintenance={maintenance}
             />
+<<<<<<< HEAD
             <SavedContexts onOpen={openSavedContext} />
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
           </div>
         </div>
       </main>

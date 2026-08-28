@@ -264,6 +264,7 @@ histograms).
 
 ---
 
+<<<<<<< HEAD
 ## 9a. Temporal context & the Context Viewer
 
 Every video result carries a window-bounded **context segment**
@@ -302,6 +303,8 @@ Gemini-only, never hallucinated) — see `context_text`.
   summary** (`LLM_CONTEXT_SUMMARY` + Gemini) is appended when available and
   never fails context generation otherwise.
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 ## 9. Search modes
 
 | mode | pipeline |

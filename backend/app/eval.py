@@ -48,8 +48,11 @@ def run_eval(dataset: dict, settings, k: int = 5) -> dict:
     rr_sum = 0.0
     temporal_ok = 0
     video_recall_ok = 0
+<<<<<<< HEAD
     iou_sum = 0.0
     overlap_queries = 0
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     total_expected = 0
     n = 0
     per_query = []
@@ -98,6 +101,7 @@ def run_eval(dataset: dict, settings, k: int = 5) -> dict:
         if hit_video:
             video_recall_ok += 1
 
+<<<<<<< HEAD
         # temporal IoU: predicted window [t-τ, t+τ] vs expected [e-τ, e+τ]
         best_iou = 0.0
         for (v, t) in retrieved:
@@ -111,6 +115,8 @@ def run_eval(dataset: dict, settings, k: int = 5) -> dict:
         if best_iou > 0:
             overlap_queries += 1
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
         n += 1
         per_query.append({
             "query": query,
@@ -135,8 +141,11 @@ def run_eval(dataset: dict, settings, k: int = 5) -> dict:
         "mrr": round(rr_sum / n, 4) if n else 0.0,
         "video_recall": rate(video_recall_ok),
         "temporal_accuracy": rate(temporal_ok),
+<<<<<<< HEAD
         "temporal_iou": round(iou_sum / n, 4) if n else 0.0,
         "segment_recall": rate(overlap_queries),
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
         "tolerance_seconds": tolerance,
         "per_query": per_query,
     }

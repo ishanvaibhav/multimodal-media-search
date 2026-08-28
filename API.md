@@ -56,6 +56,7 @@ development they are open unless a token is set.
 
 Response adds: `mode`, `semantic_search` (bool), `rerank`
 (`applied|skipped|unavailable`), and per-result `similarity` (normalized) +
+<<<<<<< HEAD
 `raw_similarity` (cosine) + `context_frames` + **temporal context**
 (`context_start`, `context_end`, `context_start_hms`, `context_end_hms`,
 `context_reason`, `context_text`).
@@ -86,10 +87,14 @@ Results also expose `final_score` (deterministic rerank) and `context_summary`.
 candidates fused (`QUERY_EXPANSION`, `FUSION_METHOD=max|sum`). Single-component
 queries are byte-for-byte unchanged, preserving the retrieval baseline.
 Query embeddings are cached in-process (`QUERY_EMBEDDING_CACHE_SIZE`).
+=======
+`raw_similarity` (cosine) + `context_frames`.
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
 Date-only `date_to` is interpreted as the **whole day** via an exclusive
 next-midnight upper bound; filtering happens backend-side.
 
+<<<<<<< HEAD
 ## Saved contexts
 
 - `POST /api/contexts` — save a result context (query, media, timestamp, segment, score, frame, text).
@@ -97,6 +102,8 @@ next-midnight upper bound; filtering happens backend-side.
 - `DELETE /api/contexts/{id}` — remove a saved context.
 - `GET /api/contexts/export?format=txt|json|csv` — download all saved contexts.
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 - `GET /api/search/history` · `DELETE /api/search/history` — history includes `mode` and `latency_ms`.
 - `POST /api/search/feedback` — `{query, relevant, video_id?, frame_id?, timestamp?}` (analytics only).
 - `GET /api/search/feedback` — summary.

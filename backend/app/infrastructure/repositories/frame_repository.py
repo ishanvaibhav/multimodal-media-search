@@ -53,6 +53,7 @@ class FrameRepository:
         )
         return [Frame.from_row(r) for r in rows]
 
+<<<<<<< HEAD
     def between(
         self, video_id: str, lo: float, hi: float, limit: int = 50,
         frame_type: str | None = None,
@@ -83,6 +84,8 @@ class FrameRepository:
             )
         return [Frame.from_row(r) for r in rows]
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     def around(self, video_id: str, timestamp: float, count: int = 5) -> list[Frame]:
         rows = self.db.query(
             """

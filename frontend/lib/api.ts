@@ -10,7 +10,10 @@ import type {
   JobItem,
   MediaListResponse,
   MetricsSnapshot,
+<<<<<<< HEAD
   SavedContext,
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   SearchResponse,
   SearchRequest,
   SystemInfo,
@@ -157,6 +160,7 @@ export const api = {
   cancelJob: (jobId: string) =>
     request<JobItem>(`/api/jobs/${jobId}/cancel`, { method: "POST" }),
 
+<<<<<<< HEAD
   // saved contexts
   saveContext: (payload: Record<string, unknown>) =>
     request<SavedContext>("/api/contexts", {
@@ -173,6 +177,8 @@ export const api = {
     return res.text();
   },
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   // admin
   clearAllData: (confirmation: string) =>
     request<{ cleared: boolean; deleted: Record<string, unknown> }>(

@@ -34,11 +34,18 @@ from ..infrastructure.repositories import (
     VideoRepository,
 )
 from ..infrastructure.reranker import LLMReranker
+<<<<<<< HEAD
 from .context_service import format_context_text
 from ..infrastructure.storage import StorageService
 from ..infrastructure.vectorstore import VectorStore
 from ..logging_config import get_logger
 from ..utils import format_hms, format_hms_full, validate_date_bound, validate_id
+=======
+from ..infrastructure.storage import StorageService
+from ..infrastructure.vectorstore import VectorStore
+from ..logging_config import get_logger
+from ..utils import format_hms, validate_date_bound, validate_id
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 from ..versioning import FINE_EXTRACTION_VERSION
 
 log = get_logger(__name__)
@@ -90,11 +97,14 @@ class SearchService:
             f"{self.embedding.metadata().get('model_version')}:"
             f"{self.embedding.metadata().get('preprocessing_version')}"
         )
+<<<<<<< HEAD
         # in-process query-embedding cache (keyed by normalized query text;
         # the embedding model is fixed per process, so text key is sufficient)
         self._qemb_cache: OrderedDict[str, object] = OrderedDict()
         self._qemb_lock = threading.Lock()
         self._qemb_max = max(1, settings.query_embedding_cache_size)
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
     @property
     def fine_active(self) -> int:
@@ -132,12 +142,18 @@ class SearchService:
         fine_search = mode == "accurate" and bool(filters.get("fine_search", True))
         grouping = bool(filters.get("temporal_grouping", True))
 
+<<<<<<< HEAD
         query = self._normalize_query(query)
+=======
+        with metrics.timed("search.embed"):
+            q_emb = self.embedding.embed_text([query])[0]
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
         where = self._build_where(filters)
         if where is _NO_MATCHES:
             return self._respond(query, mode, started, [], 0)
 
+<<<<<<< HEAD
         # Stage 1: candidate retrieval — optionally via deterministic query
         # expansion + fusion. Single-component queries behave identically to
         # before (regression-safe); connector queries ("X near Y") also match
@@ -148,6 +164,10 @@ class SearchService:
 
         with metrics.timed("search.vector_query"):
             candidates = self._fused_candidates(q_embs, top_k=top_k, where=where)
+=======
+        with metrics.timed("search.vector_query"):
+            candidates = self.vectorstore.query(q_emb, top_k=top_k, where=where)
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
         if min_similarity is not None:
             threshold = float(min_similarity)
             candidates = [c for c in candidates if c.score >= threshold]
@@ -164,7 +184,11 @@ class SearchService:
         # fine-grained search on the top events (bounded + cache-aware)
         if fine_search:
             with metrics.timed("search.fine"):
+<<<<<<< HEAD
                 events = self._fine_search(query, q_embs[0], events, filters)
+=======
+                events = self._fine_search(query, q_emb, events, filters)
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
         # optional LLM rerank (best-effort)
         rerank_status = "skipped"
@@ -188,6 +212,7 @@ class SearchService:
                 else:
                     rerank_status = "unavailable"
 
+<<<<<<< HEAD
         # normalize scores + deterministic rerank + sort
         normalize = self.settings.ranking_normalization.strip().lower() == "per_video"
         if normalize:
@@ -199,6 +224,13 @@ class SearchService:
             reranked = True
         else:
             events = self._sort_events(events, filters)
+=======
+        # normalize scores + sort
+        normalize = self.settings.ranking_normalization.strip().lower() == "per_video"
+        if normalize:
+            self._normalize_scores(events)
+        events = self._sort_events(events, filters)
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
         results = []
         videos_cache: dict[str, object] = {}
@@ -211,9 +243,13 @@ class SearchService:
                 videos_cache[rep.video_id] = video
             if video is None:
                 continue
+<<<<<<< HEAD
             context_frames, ctx_start, ctx_end, ctx_reason, ctx_text, ctx_summary = self._build_context(
                 rep, video, query
             )
+=======
+            context = self._context_frames(rep)
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
             # full traceability: every result is traceable to its video, frame,
             # retrieval stage, score, grouping and model/version.
             trace = {
@@ -246,6 +282,7 @@ class SearchService:
                 "width": video.width,
                 "height": video.height,
                 "uploaded_at": video.uploaded_at,
+<<<<<<< HEAD
                 "context_frames": context_frames,
                 "context_start": round(ctx_start, 2) if ctx_start is not None else None,
                 "context_end": round(ctx_end, 2) if ctx_end is not None else None,
@@ -255,6 +292,9 @@ class SearchService:
                 "context_text": ctx_text,
                 "context_summary": ctx_summary,
                 "final_score": round(rep.final_score, 4) if reranked else round(rep.score, 4),
+=======
+                "context_frames": context,
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
                 "trace": trace,
             })
 
@@ -275,6 +315,7 @@ class SearchService:
         }
 
     # ------------------------------------------------------------------
+<<<<<<< HEAD
     # query understanding (deterministic — no LLM, bounded cost)
     # ------------------------------------------------------------------
     def _normalize_query(self, query: str) -> str:
@@ -403,6 +444,8 @@ class SearchService:
         return merged[:top_k]
 
     # ------------------------------------------------------------------
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     def _metadata_search(self, query: str, filters: dict, started: float) -> dict:
         """Metadata-driven search: match the query against filenames/codecs.
 
@@ -748,6 +791,7 @@ class SearchService:
             for f in frames
         ]
 
+<<<<<<< HEAD
     def _build_context(self, rep: Candidate, video, query: str):
         """Compute the temporal context for a result.
 
@@ -942,6 +986,8 @@ class SearchService:
             )
         return events
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     @staticmethod
     def _normalize_scores(events: list[list[Candidate]]) -> None:
         """Per-video z-score + sigmoid so scores from different videos are

@@ -81,6 +81,7 @@ class Settings(BaseSettings):
     fine_search_max_duration_seconds: float = 120.0
     fine_search_concurrency: int = 2
     context_frames: int = 5                 # "View context" frames around a hit
+<<<<<<< HEAD
     # context segment: ±half this window around a match defines start/end
     context_window_seconds: float = 16.0
     # context frame selection: fetch more candidates, dedup, pick representatives
@@ -126,6 +127,11 @@ class Settings(BaseSettings):
     # merges these, so off by default
     rerank_weight_duplicate: float = 0.0
 
+=======
+    # ranking score normalization: per_video | none
+    ranking_normalization: str = "per_video"
+
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     # --- Performance budgets (documented targets, not hard limits) --------
     search_p50_latency_budget_ms: float = 1000.0
     search_p95_latency_budget_ms: float = 5000.0

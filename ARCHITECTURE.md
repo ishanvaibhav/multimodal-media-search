@@ -150,6 +150,7 @@ Process-local state is classified as:
 | jobs / uploads / videos / frames / fine-cache manifests / model registry | **B — persisted** | SQLite (WAL) + Chroma on disk |
 | future distributed queue + locks | **C — must become distributed** | only when multi-process is adopted; not required now |
 
+<<<<<<< HEAD
 ### 2.9 Query understanding & temporal context (Revision 5)
 
 - **Query normalization/expansion**: deterministic only (no LLM). Connector
@@ -161,6 +162,8 @@ Process-local state is classified as:
 - **Saved contexts**: `saved_contexts` table + `ContextService` +
   `/api/contexts{/…,/export}`. Derived data; wiped by DELETE ALL.
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 ## 3. Backend module map
 
 ```

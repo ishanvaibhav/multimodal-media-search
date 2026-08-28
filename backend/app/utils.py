@@ -59,6 +59,7 @@ def format_hms(seconds: float) -> str:
     return f"{m:02d}:{s:02d}"
 
 
+<<<<<<< HEAD
 def format_hms_full(seconds: float) -> str:
     """Format seconds as HH:MM:SS (always includes hours — used for copied /
     exported context timestamps so they are unambiguous)."""
@@ -68,6 +69,8 @@ def format_hms_full(seconds: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}"
 
 
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 def human_size(num: float) -> str:
     """Format a byte count into a human-readable string."""
     num = float(num)

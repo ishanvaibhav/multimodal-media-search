@@ -81,7 +81,10 @@ async def clear_all_data(body: AdminClearRequest, request: Request):
             tables = (
                 "frames", "videos", "uploads", "upload_chunks", "jobs",
                 "search_history", "feedback", "fine_cache_intervals",
+<<<<<<< HEAD
                 "saved_contexts",
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
             )
             deleted_rows = {}
             for table in tables:

@@ -206,6 +206,7 @@ MIGRATIONS: list[tuple[int, str]] = [
         CREATE INDEX IF NOT EXISTS idx_videos_media_type ON videos(media_type);
         """,
     ),
+<<<<<<< HEAD
     (
         # Saved contexts (copy/save/export feature). Derived data; additive.
         8,
@@ -236,6 +237,8 @@ MIGRATIONS: list[tuple[int, str]] = [
         ALTER TABLE saved_contexts ADD COLUMN reason TEXT;
         """,
     ),
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 ]
 
 

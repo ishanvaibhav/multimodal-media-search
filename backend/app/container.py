@@ -9,7 +9,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .application.consistency_service import ConsistencyService
+<<<<<<< HEAD
 from .application.context_service import ContextService
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 from .application.indexing_service import IndexingService
 from .application.job_service import JobService
 from .application.media_service import MediaService
@@ -32,7 +35,10 @@ from .infrastructure.repositories import (
     FineCacheRepository,
     FrameRepository,
     JobRepository,
+<<<<<<< HEAD
     SavedContextRepository,
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     SearchHistoryRepository,
     UploadRepository,
     VideoRepository,
@@ -65,14 +71,20 @@ class Container:
     history_repo: SearchHistoryRepository
     feedback_repo: FeedbackRepository
     fine_cache_repo: FineCacheRepository
+<<<<<<< HEAD
     saved_context_repo: SavedContextRepository
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
     job_service: JobService
     upload_service: UploadService
     indexing_service: IndexingService
     media_service: MediaService
     search_service: SearchService
+<<<<<<< HEAD
     context_service: ContextService
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     recovery_service: RecoveryService
     consistency_service: ConsistencyService
 
@@ -107,7 +119,10 @@ def build_container(settings: Settings) -> Container:
     history_repo = SearchHistoryRepository(database)
     feedback_repo = FeedbackRepository(database)
     fine_cache_repo = FineCacheRepository(database)
+<<<<<<< HEAD
     saved_context_repo = SavedContextRepository(database)
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 
     job_service = JobService(job_repo, video_repo, gate)
     upload_service = UploadService(
@@ -139,13 +154,19 @@ def build_container(settings: Settings) -> Container:
         history_repo=history_repo,
         feedback_repo=feedback_repo,
         fine_cache_repo=fine_cache_repo,
+<<<<<<< HEAD
         saved_context_repo=saved_context_repo,
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
         job_service=job_service,
         upload_service=upload_service,
         indexing_service=indexing_service,
         media_service=None,  # type: ignore[assignment]
         search_service=None,  # type: ignore[assignment]
+<<<<<<< HEAD
         context_service=None,  # type: ignore[assignment]
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
         recovery_service=None,  # type: ignore[assignment]
         consistency_service=None,  # type: ignore[assignment]
         worker=None,
@@ -162,7 +183,10 @@ def build_container(settings: Settings) -> Container:
         storage, ffmpeg, embedding, vectorstore, reranker, fine_cache_repo,
         gate=gate, fine_cache_locks=fine_cache_locks,
     )
+<<<<<<< HEAD
     container.context_service = ContextService(saved_context_repo)
+=======
+>>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     container.recovery_service = RecoveryService(container)
     container.consistency_service = ConsistencyService(container)
     _record_model_info(database, embedding)
