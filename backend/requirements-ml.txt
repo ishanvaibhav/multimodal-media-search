@@ -1,6 +1,0 @@
-# Optional ML stack for real SigLIP embeddings (CPU or CUDA).
-# Install after requirements.txt:
-#   pip install -r requirements-ml.txt
-torch>=2.2
-transformers>=4.44
-sentencepiece>=0.1.99

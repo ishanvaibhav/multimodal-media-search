@@ -1,0 +1,6 @@
+{
+  "name": "AI Media Search",
+  "description": "Temporal multimodal video search with natural language queries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

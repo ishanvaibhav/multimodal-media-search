@@ -3,22 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { absoluteUrl } from "@/lib/api";
 import { formatHms } from "@/lib/format";
-<<<<<<< HEAD
 import { Badge, Button } from "../ui/primitives";
-=======
-import { Badge } from "../ui/primitives";
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 import { Modal } from "../ui/Modal";
 
 export interface PlayerTarget {
   videoName: string;
   streamUrl: string;
   startAt: number; // seconds
-<<<<<<< HEAD
   endAt?: number | null; // context segment end (seconds)
   autoPlayContext?: boolean; // seek + immediately play the segment
-=======
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
 }
 
 export function VideoPlayer({
@@ -31,7 +24,6 @@ export function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [current, setCurrent] = useState(0);
   const [seeked, setSeeked] = useState(false);
-<<<<<<< HEAD
   const [playingContext, setPlayingContext] = useState(false);
 
   useEffect(() => {
@@ -39,11 +31,6 @@ export function VideoPlayer({
       setSeeked(false);
       setPlayingContext(false);
     }
-=======
-
-  useEffect(() => {
-    if (target) setSeeked(false);
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   }, [target]);
 
   useEffect(() => {
@@ -52,19 +39,15 @@ export function VideoPlayer({
     const seek = () => {
       el.currentTime = target.startAt;
       setSeeked(true);
-<<<<<<< HEAD
       if (target.autoPlayContext && target.endAt != null) {
         setPlayingContext(true);
         void el.play().catch(() => undefined);
       }
-=======
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
     };
     el.addEventListener("loadedmetadata", seek);
     return () => el.removeEventListener("loadedmetadata", seek);
   }, [target, seeked]);
 
-<<<<<<< HEAD
   // stop playback at the end of the context segment
   useEffect(() => {
     const el = videoRef.current;
@@ -88,9 +71,6 @@ export function VideoPlayer({
   };
 
   const hasContext = target != null && target.endAt != null && target.endAt > target.startAt;
-
-=======
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
   return (
     <Modal open={target !== null} onClose={onClose} title={target?.videoName ?? "Video"} wide>
       {target && (
@@ -104,7 +84,6 @@ export function VideoPlayer({
             className="w-full rounded-lg bg-black"
             onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
           />
-<<<<<<< HEAD
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
             <span>
               Position: <span className="font-mono text-accent-soft">{formatHms(current)}</span>
@@ -117,13 +96,6 @@ export function VideoPlayer({
                 </Button>
               )}
             </div>
-=======
-          <div className="mt-2 flex items-center justify-between text-xs text-slate-400">
-            <span>
-              Position: <span className="font-mono text-accent-soft">{formatHms(current)}</span>
-            </span>
-            <Badge tone="blue">Started at {formatHms(target.startAt)}</Badge>
->>>>>>> 7ed4cd97f55f17cc4833815b4ed7fa39656cb424
           </div>
         </div>
       )}
