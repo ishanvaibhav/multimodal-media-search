@@ -1,0 +1,10 @@
+# Phase 5+ — SigLIP embedding stack (installed only on indexing workers).
+# Kept separate so the API image stays slim (plan §4: separation of concerns).
+-r requirements.txt
+
+torch>=2.3
+transformers>=4.45
+sentencepiece>=0.2
+Pillow>=10.0
+imagehash>=4.3
+chromadb>=0.5

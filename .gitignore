@@ -38,3 +38,8 @@ Thumbs.db
 .config/
 .sudo_as_admin_successful
 *.log
+
+# Firebase service accounts (secrets — plan §43)
+*service-account*.json
+*serviceAccount*.json
+firebase-adminsdk*.json

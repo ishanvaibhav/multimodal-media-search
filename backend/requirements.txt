@@ -1,0 +1,21 @@
+# Core API
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pydantic-settings>=2.3
+email-validator>=2.0
+python-multipart>=0.0.9
+
+# Data layer (SQLAlchemy 2.x; PostgreSQL driver for production)
+SQLAlchemy>=2.0,<3.0
+alembic>=1.13
+psycopg[binary]>=3.1
+
+# Auth
+firebase-admin>=6.5
+
+# Background jobs & cache (wired in Phases 4–5)
+redis>=5.0
+
+# Media probing (Phase 5)
+imageio-ffmpeg>=0.5

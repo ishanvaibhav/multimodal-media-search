@@ -1,0 +1,88 @@
+# AI Media Hub — local development topology (plan §5, §56).
+# Every service is independently swappable for a managed equivalent
+# (Cloud SQL, ElastiCache, S3…) without touching application code.
+
+name: ai-media-hub
+
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      APP_ENV: development
+      AUTH_MODE: dev                       # set firebase + FIREBASE_PROJECT_ID for real auth
+      DATABASE_URL: postgresql+psycopg://aimedia:aimedia@postgres:5432/aimedia
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_PATH: /srv/data/storage
+      CHROMA_HOST: chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - hub_data:/srv/data
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+      chromadb: { condition: service_started }
+      minio: { condition: service_started }
+
+  # Indexing worker (Phase 5): same code, different entrypoint — runs
+  # FFmpeg/SigLIP jobs off the Redis queue so the API never blocks (§4, §36).
+  # worker:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile.worker
+  #   env_file: ./backend/.env
+  #   command: python -m app.workers.runner
+  #   depends_on: [backend, redis, chromadb, minio]
+
+  # Home of the future Next.js frontend service (Phase 9+ rebuild):
+  # frontend:
+  #   build: ./frontend
+  #   ports: ["3000:3000"]
+  #   depends_on: [backend]
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: aimedia
+      POSTGRES_PASSWORD: aimedia
+      POSTGRES_DB: aimedia
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aimedia"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  chromadb:
+    image: chromadb/chroma:0.5.20
+    ports:
+      - "8100:8000"
+    volumes:
+      - chroma_data:/data
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: aimedia
+      MINIO_ROOT_PASSWORD: aimedia-dev-only
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  pg_data:
+  chroma_data:
+  minio_data:
+  hub_data:
