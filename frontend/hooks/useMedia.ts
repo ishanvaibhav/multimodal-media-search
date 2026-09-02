@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import type { VideoItem } from "@/lib/types";
 import { usePolling } from "./usePolling";
@@ -21,17 +21,23 @@ export function useMedia() {
       setItems(res.items);
       setTotal(res.total);
     } catch {
-      /* shown via empty/error state */
+      // Keep the current library visible on transient refresh failures.
     } finally {
       setLoading(false);
     }
   }, [search, sortBy, sortOrder]);
 
+  useEffect(() => {
+    const handleUploadComplete = () => {
+      void refresh();
+      window.setTimeout(() => void refresh(), 1200);
+    };
+    window.addEventListener("ai-media:uploaded", handleUploadComplete);
+    return () => window.removeEventListener("ai-media:uploaded", handleUploadComplete);
+  }, [refresh]);
+
   const hasActiveJobs = items.some(
-    (v) =>
-      v.status !== "ready" &&
-      v.status !== "failed" &&
-      v.status !== "cancelled",
+    (v) => v.status !== "ready" && v.status !== "failed" && v.status !== "cancelled",
   );
   usePolling(refresh, 2500, hasActiveJobs);
 
@@ -50,19 +56,5 @@ export function useMedia() {
     await refresh();
   }, [refresh]);
 
-  return {
-    items,
-    total,
-    loading,
-    busy,
-    search,
-    setSearch,
-    sortBy,
-    setSortBy,
-    sortOrder,
-    setSortOrder,
-    refresh,
-    remove,
-    reindex,
-  };
+  return { items, total, loading, busy, search, setSearch, sortBy, setSortBy, sortOrder, setSortOrder, refresh, remove, reindex };
 }
